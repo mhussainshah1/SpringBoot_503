@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <link rel="stylesheet" th:href="@{/style.css}" type="text/css"/>
+    <title>List</title>
+</head>
+<body>
+<a href="/add">Add an actor</a>
+<div th:each="actor : ${actors}">
+    <div th:if="${actor.headshot} != null">
+        <img th:src="${actor.headshot}"/>
+        <hr/>
+    </div>
+    <h3 th:text="${actor.name}"></h3>
+    <h4 th:text="${actor.realname}"></h4>
+</div>
+</body>
+</html>
