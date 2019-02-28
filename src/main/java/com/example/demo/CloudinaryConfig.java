@@ -36,10 +36,11 @@ public class CloudinaryConfig {
     public String createUrl(String name, int width, int height, String action){
         return cloudinary
                 .url()
-                .transformation(new Transformation().width(width)
-                        .height(height)
+                .transformation(new Transformation()
+                        .width(width) //400
+                        .height(height)//400
                         .border("2px_solid_black")
-                        .crop(action))
-                .imageTag(name);
+                        .crop(action)) //thumb
+                .imageTag(name);//my actor
     }
 }

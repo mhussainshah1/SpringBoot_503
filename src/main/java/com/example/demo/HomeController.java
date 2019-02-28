@@ -21,7 +21,7 @@ public class HomeController {
 
     @RequestMapping("/")
     public String listActor(Model model){
-        model.addAttribute("actors", actorRepository.findAll());
+        model.addAttribute("actors", actorRepository.findAll());//select * from Actor
         return "list";
     }
 
@@ -32,17 +32,18 @@ public class HomeController {
     }
 
     @PostMapping("/add")
-    public String processActor(@ModelAttribute Actor actor, @RequestParam("file") MultipartFile file){
+    public String processActor(@ModelAttribute Actor actor,
+                               @RequestParam("file") MultipartFile file){
         if(file.isEmpty()){
             return "redirect:/add";
         }
         try{
-
             Map uploadResult = cloudc.upload(
                     file.getBytes(), ObjectUtils.asMap("resourcetype", "auto"));
             actor.setHeadshot(uploadResult.get("url").toString());
-            System.out.println(uploadResult);
             actorRepository.save(actor);
+            // Insert into Actor (name,realname,headshot)
+            // values (<<name>>,<<realname>>,<<headshot>>) where id = actor.id
         } catch (IOException e){
             e.printStackTrace();;
             return "redirect:/add";
