@@ -12,7 +12,7 @@ public class Actor {
     private long id;
     private String name;
     private String realname;
-    private String headshot;
+    private String headshot;//contains URL
 
     public long getId() {
         return id;

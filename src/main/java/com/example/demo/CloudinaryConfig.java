@@ -23,6 +23,7 @@ public class CloudinaryConfig {
         cloudinary.config.apiSecret =secret;
         cloudinary.config.apiKey=key;
     }
+
     public Map upload(Object file, Map options){
         try{
             return cloudinary.uploader().upload(file,options);

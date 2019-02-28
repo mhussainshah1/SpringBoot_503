@@ -37,8 +37,11 @@ public class HomeController {
             return "redirect:/add";
         }
         try{
-            Map uploadResult = cloudc.upload(file.getBytes(), ObjectUtils.asMap("resourcetype", "auto"));
+
+            Map uploadResult = cloudc.upload(
+                    file.getBytes(), ObjectUtils.asMap("resourcetype", "auto"));
             actor.setHeadshot(uploadResult.get("url").toString());
+            System.out.println(uploadResult);
             actorRepository.save(actor);
         } catch (IOException e){
             e.printStackTrace();;
