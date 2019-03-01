@@ -45,7 +45,7 @@ public class HomeController {
             // Insert into Actor (name,realname,headshot)
             // values (<<name>>,<<realname>>,<<headshot>>) where id = actor.id
         } catch (IOException e){
-            e.printStackTrace();;
+            e.printStackTrace();
             return "redirect:/add";
         }
         return "redirect:/";
