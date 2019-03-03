@@ -6,28 +6,29 @@
 </head>
 <body>
 <br/><br/>
-<div>
+<div class="container" align="center">
     <h1>Spring Boot file upload example</h1>
 
-    <form action="#"
-          enctype="multipart/form-data"
-          method="POST"
-          th:action="@{/process}"
-          th:object="${actor}">
+    <div class="form-horizontal">
+        <form action="#"
+              enctype="multipart/form-data"
+              method="POST"
+              th:action="@{/process}"
+              th:object="${actor}">
 
-        <input th:field="*{id}" type="hidden"/>
+            <input th:field="*{id}" type="hidden"/>
 
-        Name: <input th:field="*{name}" type="text"/>
-        <span th:errors="*{name}" th:if="${#fields.hasErrors('name')}"></span><br/>
+            Name: <input th:field="*{name}" type="text"/>
+            <span th:errors="*{name}" th:if="${#fields.hasErrors('name')}"></span><br/>
 
-        Real Name: <input th:field="*{realname}" type="text"/>
-        <span th:errors="*{realname}" th:if="${#fields.hasErrors('realname')}"></span><br/>
+            Real Name: <input th:field="*{realname}" type="text"/>
+            <span th:errors="*{realname}" th:if="${#fields.hasErrors('realname')}"></span><br/>
 
-        Select Picture:<input name="file" type="file"/> <br/>
+            Select Picture:<input name="file" type="file"/> <br/>
 
-        <input type="submit" value="Submit"/>
-    </form>
+            <input type="submit" value="Submit"/>
+        </form>
+    </div>
 </div>
-
 </body>
 </html>
