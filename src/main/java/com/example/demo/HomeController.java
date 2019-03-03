@@ -49,10 +49,14 @@ public class HomeController {
         if (result.hasErrors() || file.isEmpty()) {
             return "form";//"redirect:/add";
         }
+
         try {
             Map uploadResult = cloudc.upload(
                     file.getBytes(), ObjectUtils.asMap("resourcetype", "auto"));
-            actor.setHeadshot(uploadResult.get("url").toString());
+            String uploadURL = uploadResult.get("url").toString();
+            String uploadedName = uploadResult.get("public_id").toString();
+            String transformedImage = cloudc.createUrl(uploadedName);
+            actor.setHeadshot(transformedImage);
             actorRepository.save(actor);
             // Insert into Actor (name,realname,headshot)
             // values (<<name>>,<<realname>>,<<headshot>>) where id = actor.id
