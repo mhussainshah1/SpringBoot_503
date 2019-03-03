@@ -5,7 +5,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
@@ -21,35 +24,40 @@ public class HomeController {
     CloudinaryConfig cloudc;
 
     @RequestMapping("/")
-    public String listActor(Model model){
+    public String listActor(Model model) {
         model.addAttribute("actors", actorRepository.findAll());//select * from Actor
         return "list";
     }
 
     @GetMapping("/add")
-    public String newActor(Model model){
+    public String newActor(Model model) {
         model.addAttribute("actor", new Actor());
         System.out.println("Get Mapping called");
         return "form";
     }
 
+    /**
+     * I have found weird thing. We gotta put @Valid and BinddingResult parameter together
+     * otherwise page move to another page
+     *
+     */
     @PostMapping("/process")
     public String processActor(@Valid Actor actor,
                                BindingResult result,
-                               @RequestParam("file") MultipartFile file ){
+                               @RequestParam("file") MultipartFile file) {
         System.out.println("Post Mapping called");
-        if(result.hasErrors() || file.isEmpty()){
+        if (result.hasErrors() || file.isEmpty()) {
             return "form";//"redirect:/add";
         }
-        try{
+        try {
             Map uploadResult = cloudc.upload(
                     file.getBytes(), ObjectUtils.asMap("resourcetype", "auto"));
             actor.setHeadshot(uploadResult.get("url").toString());
             actorRepository.save(actor);
             // Insert into Actor (name,realname,headshot)
             // values (<<name>>,<<realname>>,<<headshot>>) where id = actor.id
-        } catch (IOException e){
-            e.printStackTrace();;
+        } catch (IOException e) {
+            e.printStackTrace();
             return "redirect:/form";
         }
         return "redirect:/";
