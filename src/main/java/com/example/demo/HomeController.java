@@ -56,6 +56,11 @@ public class HomeController {
             String uploadURL = uploadResult.get("url").toString();
             String uploadedName = uploadResult.get("public_id").toString();
             String transformedImage = cloudc.createUrl(uploadedName);
+
+            System.out.println("Uploaded Url:" + uploadURL);
+            System.out.println("Uploaded File Name:" + uploadedName);
+            System.out.println("Transformed Url:" + transformedImage);
+
             actor.setHeadshot(transformedImage);
             actorRepository.save(actor);
             // Insert into Actor (name,realname,headshot)
