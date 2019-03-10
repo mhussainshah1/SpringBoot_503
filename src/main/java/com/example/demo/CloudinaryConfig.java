@@ -61,7 +61,6 @@ public class CloudinaryConfig {
                         .radius(50)
                         .gravity("face"))
                 .generate(name);
-
     }
 
     /**
@@ -77,7 +76,6 @@ public class CloudinaryConfig {
                         .radius(50)
                         .gravity("face"))
                 .type("fetch").generate(url);
-
     }
 
     public String createUrl(String name, int width, int height, String action) {
